@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安乃达(603350) 机构研报深度分析 | Synapse Agent6</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f5f5f5;color:#333;line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:40px 20px;text-align:center;border-radius:12px;margin-bottom:24px}
+.header h1{font-size:28px;margin-bottom:8px}
+.header .sub{font-size:14px;opacity:.8}
+.summary{background:#fff;border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.summary h2{font-size:20px;color:#1a1a2e;margin-bottom:16px;border-bottom:2px solid #0f3460;padding-bottom:8px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stat-card{background:#f8f9fa;padding:16px;border-radius:8px;text-align:center}
+.stat-card .label{font-size:12px;color:#888;margin-bottom:4px}
+.stat-card .value{font-size:24px;font-weight:700;color:#0f3460}
+.stat-card .value.red{color:#d63031}
+.stat-card .value.green{color:#00b894}
+.stat-card .value.warn{color:#e17055}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card h3{font-size:18px;color:#1a1a2e;margin-bottom:16px}
+.chart-wrap{position:relative;height:300px}
+.chart-wrap.tall{height:400px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:#0f3460;color:#fff;padding:10px 12px;text-align:left}
+td{padding:8px 12px;border-bottom:1px solid #eee}
+tr:hover{background:#f8f9fa}
+.tag{padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600}
+.tag-red{background:#ffeaea;color:#d63031}
+.tag-green{background:#e6fff2;color:#00b894}
+.tag-yellow{background:#fff8e1;color:#f39c12}
+.tag-blue{background:#e8f0fe;color:#0984e3}
+.issues{background:#fff3e0;border-left:4px solid #e17055;padding:16px;margin:12px 0;border-radius:0 8px 8px 0}
+.issues h4{color:#e17055;margin-bottom:8px}
+.footer{text-align:center;color:#888;font-size:12px;padding:20px;margin-top:24px}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>安乃达(603350) 机构研报深度分析</h1>
+<div class="sub">Synapse Agent6 v5.31.1 · 2026年5月29日 · 电力设备/电机Ⅲ</div>
+</div>
+
+<div class="summary">
+<h2>核心发现摘要</h2>
+<div class="summary-grid">
+<div class="stat-card"><div class="label">覆盖机构</div><div class="value">3家</div></div>
+<div class="stat-card"><div class="label">买入/推荐</div><div class="value green">3/0/0</div></div>
+<div class="stat-card"><div class="label">目标价中枢</div><div class="value">42.64元</div></div>
+<div class="stat-card"><div class="label">当前股价</div><div class="value warn">31.10元</div></div>
+<div class="stat-card"><div class="label">潜在空间</div><div class="value green">+37.1%</div></div>
+<div class="stat-card"><div class="label">PE(TTM)</div><div class="value">33.64x</div></div>
+<div class="stat-card"><div class="label">综合得分</div><div class="value warn">49.45</div></div>
+<div class="stat-card"><div class="label">利好兑现</div><div class="value green">未兑现</div></div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h3>机构评级分布</h3>
+<div class="chart-wrap"><canvas id="ratingChart"></canvas></div>
+</div>
+<div class="card">
+<h3>机构目标价 vs 当前价</h3>
+<div class="chart-wrap"><canvas id="targetChart"></canvas></div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h3>机构 EPS 预测对比</h3>
+<div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+</div>
+<div class="card">
+<h3>隐含 Forward PE 对比</h3>
+<div class="chart-wrap"><canvas id="peChart"></canvas></div>
+</div>
+</div>
+
+<div class="card">
+<h3>股价区间映射（情景分析）</h3>
+<div class="chart-wrap tall"><canvas id="priceMapChart"></canvas></div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h3>盈利趋势（FY2022-2026Q1）</h3>
+<div class="chart-wrap"><canvas id="profitTrendChart"></canvas></div>
+</div>
+<div class="card">
+<h3>综合得分雷达图</h3>
+<div class="chart-wrap"><canvas id="scoreRadar"></canvas></div>
+</div>
+</div>
+
+<div class="card">
+<h3>PE 安全边际评估</h3>
+<div class="chart-wrap tall"><canvas id="peSafetyChart"></canvas></div>
+</div>
+
+<div class="card">
+<h3>关键估值对比</h3>
+<table>
+<tr><th>指标</th><th>安乃达</th><th>行业排名</th><th>行业分位</th><th>判定</th></tr>
+<tr><td>PE(TTM)</td><td>33.64x</td><td>2/11</td><td>18%</td><td><span class="tag tag-green">偏低</span></td></tr>
+<tr><td>PB(TTM)</td><td>2.73x</td><td>3/11</td><td>27%</td><td><span class="tag tag-green">偏低</span></td></tr>
+<tr><td>ROE(FY2024)</td><td>10.57%</td><td>7/24</td><td>29%</td><td><span class="tag tag-yellow">中等</span></td></tr>
+<tr><td>毛利率(FY2024)</td><td>17.63%</td><td>16/24</td><td>67%</td><td><span class="tag tag-red">偏低</span></td></tr>
+<tr><td>净利率(FY2024)</td><td>7.19%</td><td>5/24</td><td>21%</td><td><span class="tag tag-green">偏高</span></td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>⚠️ 执行问题记录</h3>
+<table>
+<tr><th>#</th><th>问题</th><th>严重程度</th><th>说明</th></tr>
+<tr><td>P1</td><td>Q4a endDate过滤导致FY2025年报缺失</td><td><span class="tag tag-red">高</span></td><td>endDate=TODAY_MINUS_12M过滤掉了FY2025年报，关键盈利数据缺失</td></tr>
+<tr><td>P2</td><td>Q13 per-share-indicators字段全为None</td><td><span class="tag tag-yellow">中</span></td><td>EPS(TTM)等四个字段全部为空</td></tr>
+<tr><td>P3</td><td>机构覆盖严重不足</td><td><span class="tag tag-yellow">中</span></td><td>仅3家，中信正文缺失，分析深度受限</td></tr>
+<tr><td>P4</td><td>Q18 PE值与Q3 PE值不一致</td><td><span class="tag tag-blue">低</span></td><td>Q18当前PE=21.93 vs Q3 PE=33.64，数据源口径差异</td></tr>
+<tr><td>P5</td><td>CF1/CF2资金流向未获取</td><td><span class="tag tag-blue">低</span></td><td>利好兑现预期反应率无法计算</td></tr>
+</table>
+</div>
+
+<div class="footer">
+<p>Synapse Agent6 v5.31.1 · 基于 investoday-api 数据 · 2026-05-29</p>
+<p style="color:#e17055;margin-top:8px">⚠️ 本报告不构成任何投资建议。所有分析基于公开机构研报数据和客观金融数据。</p>
+</div>
+</div>
+
+<script>
+// 评级分布
+new Chart(document.getElementById('ratingChart'),{
+type:'doughnut',
+data:{labels:['买入','推荐'],datasets:[{data:[2,1],backgroundColor:['#00b894','#0984e3']}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'买入2家 / 推荐1家',font:{size:13}}}}});
+
+// 目标价柱状图
+new Chart(document.getElementById('targetChart'),{
+type:'bar',
+data:{labels:['方正证券','中信证券','华鑫证券'],datasets:[
+{label:'目标价',data:[38.08,42.64,44.11],backgroundColor:'#0984e3'},
+{label:'当前价',data:[31.10,31.10,31.10],backgroundColor:'#e17055'}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'目标价区间 38~44元',font:{size:13}}},scales:{y:{beginAtZero:false,min:25}}}});
+
+// EPS预测
+new Chart(document.getElementById('epsChart'),{
+type:'bar',
+data:{labels:['方正证券','中信证券','华鑫证券'],datasets:[
+{label:'2026E EPS',data:[1.2275,1.005,1.0222],backgroundColor:'#00b894'},
+{label:'FY2024实际EPS',data:[1.08,1.08,1.08],backgroundColor:'#b2bec3'}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'EPS预测 1.00~1.23元',font:{size:13}}},scales:{y:{beginAtZero:true}}}});
+
+// 隐含PE
+new Chart(document.getElementById('peChart'),{
+type:'bar',
+data:{labels:['方正证券','中信证券','华鑫证券'],datasets:[
+{label:'隐含PE(x)',data:[31.0,42.4,43.2],backgroundColor:['#00b894','#fdcb6e','#e17055']},
+{label:'当前PE',data:[33.64,33.64,33.64],backgroundColor:'#b2bec3',borderWidth:2,type:'line',borderColor:'#d63031',fill:false}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'方正隐含PE显著低于同行',font:{size:13}}}});
+
+// 股价区间映射
+new Chart(document.getElementById('priceMapChart'),{
+type:'bar',
+data:{labels:['保守情景','中性情景','乐观情景'],datasets:[
+{label:'参考股价(元)',data:[37.36,46.81,62.28],backgroundColor:['#74b9ff','#0984e3','#0f3460']}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'当前价31.10元 — 处于保守情景下方 (+20%~+100%)',font:{size:13}},annotation:{}},scales:{y:{beginAtZero:false,min:25}}}}
+);
+
+// 盈利趋势
+new Chart(document.getElementById('profitTrendChart'),{
+type:'line',
+data:{labels:['FY2022','FY2023','FY2024','2026Q1(年化)'],datasets:[
+{label:'ROE(%)',data:[30.05,22.67,10.57,9.6],borderColor:'#d63031',tension:.3,fill:false},
+{label:'毛利率(%)',data:[21.28,19.84,17.63,16.84],borderColor:'#e17055',tension:.3,fill:false},
+{label:'净利率(%)',data:[10.78,10.34,7.19,6.32],borderColor:'#fdcb6e',tension:.3,fill:false}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'🔴 三项核心盈利指标连续4年下滑',font:{size:13,color:'#d63031'}}}}});
+
+// 综合得分雷达
+new Chart(document.getElementById('scoreRadar'),{
+type:'radar',
+data:{labels:['综合得分','情绪面','财务面','赛道面','技术面'],datasets:[
+{label:'安乃达',data:[49.45,42.45,55.27,54.47,44.22],borderColor:'#d63031',backgroundColor:'rgba(214,48,49,0.1)'},
+{label:'行业均值',data:[65.02,67.74,61.75,52.51,68.57],borderColor:'#0984e3',backgroundColor:'rgba(9,132,227,0.1)'}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'全面低于行业均值（仅赛道面略高）',font:{size:13}}},scales:{r:{min:30,max:80}}}});
+
+// PE安全边际
+new Chart(document.getElementById('peSafetyChart'),{
+type:'bar',
+data:{labels:['当前PE','历史P25','历史P50','历史P75','历史P90','行业PE中位数','机构隐含PE中位'],datasets:[
+{label:'PE倍数',data:[33.64,32.32,35.96,38.45,42.91,62.26,42.4],
+backgroundColor:['#d63031','#74b9ff','#74b9ff','#74b9ff','#b2bec3','#fdcb6e','#00b894']}
+]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'当前PE处于历史低位，远低于行业PE中位数',font:{size:13}}}}});
+</script>
+</body>
+</html>
